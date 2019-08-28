@@ -1,9 +1,17 @@
-# How to use activity Utils class.
- Direct Navigation with one activity to another activity.
- 
-ActivityUtils.startNewActivity(this, null, DashboardNavigationActivity::class.java)
+============================================= How to use activity Utils class ========================================================
 
-- ActivityUtils
+1. Direct Navigation with one activity to another activity. 
+   ActivityUtils.startNewActivity(this, null, XYZ::class.java)
+
+2.Navigation with bundle data and finished previous stack activity. 
+ val bundle = Bundle()
+ bundle.putString("key","value")
+ ActivityUtils.startNewActivityWithFinish(mActivity = this, data = bundle, clazz = XYZ::class.java)
+ 
+ 3.Navigation with clear all previous stack activities.
+ ActivityUtils.startLoginActivityWithFinishAll(this, null, XYZ::class.java)
+
+============================================= ActivityUtils.kt ========================================================
 
 object ActivityUtils
 {
