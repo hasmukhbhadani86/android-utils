@@ -1,3 +1,10 @@
+- How to use activity Utils class.
+ Direct Navigation with one activity to another activity.
+ 
+ActivityUtils.startNewActivity(this, null, DashboardNavigationActivity::class.java)
+
+- ActivityUtils
+
 object ActivityUtils
 {
     fun <T : Any?> startNewActivity(mContext: Context, data: Bundle? = null, clazz: Class<T>)
