@@ -1,5 +1,5 @@
 
-============================================= How to use activity Utils class ========================================================
+============================================= How to use activity Utils class ===================================================
 
 1. Direct Navigation with one activity to another activity. 
    ActivityUtils.startNewActivity(this, null, XYZ::class.java)
@@ -12,7 +12,7 @@
  3.Navigation with clear all previous stack activities.
    ActivityUtils.startLoginActivityWithFinishAll(this, null, XYZ::class.java)
 
-============================================= ActivityUtils.kt ========================================================
+================================================ ActivityUtils.kt ================================================================
 
 object ActivityUtils
 {
