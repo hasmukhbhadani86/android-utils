@@ -1,0 +1,138 @@
+
+import java.util.Date;
+import android.content.Context;
+import android.content.res.Resources;
+/**
+ * https://github.com/bancek/android-timeago
+ * @author hashmukh.bhadani
+ *
+ */
+
+public class TimeAgo {
+
+	protected Context context;
+
+	public TimeAgo(Context context) {
+		this.context = context;
+	}
+
+	public String timeAgo(Date date) {
+		return timeAgo(date.getTime());
+	}
+
+	public String timeAgo(long millis) {
+		long diff = new Date().getTime() - millis;
+
+		Resources r = context.getResources();
+
+		String prefix = r.getString(R.string.time_ago_prefix);
+		String suffix = r.getString(R.string.time_ago_suffix);
+
+		double seconds = Math.abs(diff) / 1000;
+		double minutes = seconds / 60;
+		double hours = minutes / 60;
+		double days = hours / 24;
+		double years = days / 365;
+
+		String words;
+
+		if (seconds < 45) {
+			words = r.getString(R.string.time_ago_seconds, Math.round(seconds));
+		} else if (seconds < 90) {
+			words = r.getString(R.string.time_ago_minute, 1);
+		} else if (minutes < 45) {
+			words = r.getString(R.string.time_ago_minutes, Math.round(minutes));
+		} else if (minutes < 90) {
+			words = r.getString(R.string.time_ago_hour, 1);
+		} else if (hours < 24) {
+			words = r.getString(R.string.time_ago_hours, Math.round(hours));
+		} else if (hours < 42) {
+			words = r.getString(R.string.time_ago_day, 1);
+		}
+
+		//days Calculation
+		else if (days < 31) 
+		{
+			if(days==6)
+			{
+				words = r.getString(R.string.time_ago_week,1);
+			}
+			else if(days> 6 && days <=13)
+			{
+				if(days==13)
+					words = r.getString(R.string.time_ago_weeks,2);
+				else
+					words = r.getString(R.string.time_ago_week,1)+", "+(Math.round(days)-6)+" days";	
+			}
+			else if(days> 13 && days <=20)
+			{
+				if(days==20)
+					words = r.getString(R.string.time_ago_weeks,3);
+				else 
+					words = r.getString(R.string.time_ago_week,3)+", "+(Math.round(days)-13)+" days";
+
+			}
+			else if(days > 20 && days < 31)
+			{
+				if(days==27 || days==28 || days==30)
+					words = r.getString(R.string.time_ago_weeks,4);
+				else 
+					words = r.getString(R.string.time_ago_week,3)+", "+(Math.round(days)-20)+" days";
+				
+			}
+			else
+			{				
+				words = r.getString(R.string.time_ago_days, Math.round(days));
+			}
+
+		}
+		else if (days < 45) 
+		{
+			words = r.getString(R.string.time_ago_month, 1);
+		} 
+		else if (days < 365) 
+		{
+			words = r.getString(R.string.time_ago_months, Math.round(days / 30));
+		} 
+
+		//years Calculation		
+		else if (years < 1.5) {
+			words = r.getString(R.string.time_ago_year, 1);
+		} else {
+			words = r.getString(R.string.time_ago_years, Math.round(years));
+		}
+
+		StringBuilder sb = new StringBuilder();
+
+		if (prefix != null && prefix.length() > 0) {
+			sb.append(prefix).append(" ");
+		}
+
+		sb.append(words);
+
+		if (suffix != null && suffix.length() > 0) {
+			sb.append(" ").append(suffix);
+		}
+
+		return sb.toString().trim();
+	}
+}
+
+========================================= String to set suffix for time agao ==================================================
+
+<string name="time_ago_prefix"></string>
+    <string name="time_ago_suffix">ago</string>
+    <string name="time_ago_seconds">few seconds</string>
+    <string name="time_ago_minute">1 minute</string>
+    <string name="time_ago_minutes">%d minutes</string>
+    <string name="time_ago_hour">1 hour</string>
+    <string name="time_ago_hours">%d hours</string>
+    <string name="time_ago_day">1 day</string>
+    <string name="time_ago_week">1 week</string>
+    <string name="time_ago_weeks">%d week</string>
+    <string name="time_ago_days">%d days</string>
+    <string name="time_ago_month">1 month</string>
+    <string name="time_ago_months">%d months</string>
+    <string name="time_ago_year">1 year</string>
+    <string name="time_ago_years">%d years</string>
+    
