@@ -1,0 +1,58 @@
+
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
+import com.cohesionib.nw155.R
+import java.util.*
+
+/** 
+ * Created By Hasmukh Bhadani 
+ */
+object FragmentUtils
+{
+    fun addFragment(mFragment: Fragment, supportFragmentManager: FragmentManager)
+    {
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        FragmentManager.enableDebugLogging(true)
+
+        fragmentTransaction.replace(R.id.flContentBody, mFragment, mFragment.tag)
+        fragmentTransaction.addToBackStack(mFragment.tag)
+
+        fragmentTransaction.commitAllowingStateLoss()
+    }
+
+    /**
+     * @param mFragment : Fragment
+     * @param supportFragmentManager
+     * @contentId : ID of content body layout eg.Frame Layout. It used for childFragments view layout.
+     */
+
+    fun replaceFragment(mFragment: Fragment, supportFragmentManager: FragmentManager, contentId: Int? = null)
+    {
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        FragmentManager.enableDebugLogging(true)
+
+        supportFragmentManager.fragments.clear()
+        supportFragmentManager.fragments.removeAll(Collections.singleton(null))
+
+        if (contentId != null)
+            fragmentTransaction.replace(contentId, mFragment, mFragment.tag)
+        else
+            fragmentTransaction.replace(R.id.flContentBody, mFragment, mFragment.tag)
+
+        fragmentTransaction.commitAllowingStateLoss()
+    }
+
+    fun getCurrentFragment(supportFragmentManager: FragmentManager): Fragment
+    {
+        return supportFragmentManager.fragments.last()
+    }
+}
+
+============================================= How to use Fragment Utils class ===================================================
+1.ReplaceFragment
+  FragmentUtils.replaceFragment(XYZ(), supportFragmentManager)
+  
+2.AddFragment
+  FragmentUtils.replaceFragment(XYZ(), supportFragmentManager)
+  
+
