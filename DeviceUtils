@@ -95,4 +95,16 @@ public class DeviceUtils
 
         return isInBackground;
     }
+    
+    /**
+     * This method is used to check if the device is Tablet or Mobile.
+     *
+     * @param context
+     * @return true if tablet, false otherwise
+     */
+    public static boolean isTablet( Context context )
+    {
+        return (context.getResources().getConfiguration().screenLayout
+                & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_XLARGE;
+    }
 }
