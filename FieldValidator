@@ -126,4 +126,35 @@ public class FieldValidator
         }
         return true;
     }
+    
+    public static boolean isEmpty( String strText )
+    {
+        if ( strText == null )
+        {
+            return true;
+        }
+        return TextUtils.isEmpty(strText);
+    }
+
+    private String capitalize( String s )
+    {
+        if ( s == null || s.length() == 0 )
+        {
+            return "";
+        }
+        char first = s.charAt(0);
+        if ( Character.isUpperCase(first) )
+        {
+            return s;
+        }
+        else
+        {
+            return Character.toUpperCase(first) + s.substring(1);
+        }
+    }
+
+    public static String isBlankValue( String strText )
+    {
+        return ((strText != null && strText.length() > 0) ? strText.trim() : "N/A");
+    }
 }
