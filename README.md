@@ -1,2 +1,4 @@
 # android-utils
-Utils method like network, files, keyboard, notify etc..
+Utility classes like network, files, validation, notify etc..
+
+
