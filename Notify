@@ -1,0 +1,150 @@
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.support.design.widget.Snackbar;
+import android.view.View;
+import android.widget.Toast;
+
+/**
+ * Created by Hasmukh Bhadani.
+ */
+public class Notify
+{
+
+    private static final String TAG = Notify.class.getName();
+
+    private static AlertDialog alertdialog = null;
+
+    public static void toast( String text, Context activity )
+    {
+
+        try
+        {
+
+            Toast.makeText(activity, text, Toast.LENGTH_SHORT).show();
+
+        }
+        catch ( Exception e )
+        {
+
+            e.printStackTrace();
+        }
+    }
+
+    public static void snackbar( String text, Context activity, View view )
+    {
+
+        try
+        {
+            Snackbar snackbar = Snackbar.make(view, text, Snackbar.LENGTH_SHORT);
+            snackbar.show();
+
+        }
+        catch ( Exception e )
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public static void dialogOK( String message, final Activity activity, final boolean finish )
+    {
+
+        if ( StringUtils.isEmpty(message) )
+        {
+
+            return;
+        }
+
+        try
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+            builder.setTitle(activity.getString(R.string.app_name));
+            builder.setMessage(message);
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener()
+            {
+                @Override
+                public void onClick( DialogInterface dialog, int which )
+                {
+                    dialog.dismiss();
+                    if ( finish )
+                    {
+                        activity.finish();
+                    }
+                }
+            });
+            builder.show();
+
+        }
+        catch ( Exception e )
+        {
+
+            AndroidLog.e(TAG, e.toString());
+        }
+    }
+
+    public static void showAlertDialogCustom( Context context, String message, String positiveTitle, String negativeTitle, DialogInterface.OnClickListener positive, DialogInterface.OnClickListener negative )
+    {
+        try
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setCancelable(false);
+            builder.setTitle(R.string.app_name);
+            builder.setMessage(message);
+            builder.setPositiveButton(positiveTitle, positive);
+            if ( negative!=null )
+            {
+                builder.setNegativeButton(negativeTitle, negative);
+            }
+
+            if ( alertdialog != null && alertdialog.isShowing() )
+            {
+                alertdialog.dismiss();
+                alertdialog = null;
+            }
+            alertdialog = builder.create();
+            alertdialog.show();
+        }
+        catch ( Exception e )
+        {
+            AndroidLog.e("Utils", "Display Alert Dialog Error" + e.getMessage());
+        }
+
+    }
+
+}
+
+============================================ Custom dialog method implementation===================================================
+1. OK and CANCEL button.
+
+Notify.showAlertDialogCustom(this, "message..", "ok", "Cancel", new DialogInterface.OnClickListener()
+                    {
+                        @Override
+                        public void onClick( DialogInterface dialog, int which )
+                        {
+
+                            //Do stuff here OK 
+
+                        }
+                    }, new DialogInterface.OnClickListener()
+                    {
+                        @Override
+                        public void onClick( DialogInterface dialog, int which )
+                        {
+                            //Do stuff here CANCLE 
+                        }
+                    });
+                    
+              
+2. OK Button only.
+					
+Notify.showAlertDialogCustom(this, "message..", "ok", "Cancel", new DialogInterface.OnClickListener()
+                  {
+                     @Override
+                     public void onClick( DialogInterface dialog, int which )
+                     {
+                       //Do stuff here OK 
+                      }
+                    }, null);
+
