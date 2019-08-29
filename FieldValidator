@@ -1,0 +1,129 @@
+
+import android.content.Context;
+import android.support.design.widget.TextInputLayout;
+import android.util.Patterns;
+import android.widget.EditText;
+
+/**
+ * Created by Hasmukh Bhadani.
+ */
+public class FieldValidator
+{
+
+    public static void showValidationMessage( String message, EditText editText, Context context )
+    {
+
+        if ( editText != null )
+        {
+
+            //editText.setError(message);
+            editText.requestFocus();
+        }
+//        Notify.toast(message, context);
+        Notify.snackbar(message, context, editText);
+    }
+
+    public static boolean isValidEmail( CharSequence target )
+    {
+
+        if ( target == null || StringUtils.isEmpty((String) target) )
+        {
+
+            return false;
+
+        }
+        else
+        {
+
+            return Patterns.EMAIL_ADDRESS.matcher(target).matches();
+        }
+    }
+
+    public static boolean validateEmail( EditText editText, String strMessage, TextInputLayout tilEmailId )
+    {
+
+        Context context = editText.getContext();
+
+        String emptyField = context.getString(R.string.empty_email);
+
+        String text = editText.getText().toString().trim();
+
+        if ( StringUtils.isEmpty(text) )
+        {
+
+//            tilEmailId.setError(emptyField);
+
+            showValidationMessage(emptyField, editText, context);
+
+            return false;
+
+        }
+        else if ( !isValidEmail(text) )
+        {
+
+//            tilEmailId.setError(context.getString(R.string.str_valid_email_id));
+
+            showValidationMessage(strMessage, editText, context);
+
+            return false;
+        }
+
+        return true;
+    }
+
+    public static boolean validatePassword( EditText editText, TextInputLayout tilPassword, String strErrorMsg )
+    {
+
+        Context context = editText.getContext();
+
+        String emptyField = context.getString(R.string.empty_password);
+//        String invalidField = context.getString(R.string.invalid_password);
+
+        String text = editText.getText().toString().trim();
+
+        if ( StringUtils.isEmpty(text) )
+        {
+
+//            tilPassword.setError(emptyField);
+
+            showValidationMessage(strErrorMsg, editText, context);
+
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean validateText( EditText editText, String strMessage )
+    {
+
+        Context context = editText.getContext();
+        String emptyField = strMessage;
+
+        String text = editText.getText().toString().trim();
+
+        if ( StringUtils.isEmpty(text) )
+        {
+
+            showValidationMessage(emptyField, editText, context);
+
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean validateConfirmPassword( EditText etNewPwd, EditText etConfirmPwd, String string, TextInputLayout tilConfirmPwd )
+    {
+
+        Context context = etNewPwd.getContext();
+
+        String strNewPwd = etNewPwd.getText().toString().trim();
+        String strConfirmPwd = etConfirmPwd.getText().toString().trim();
+
+        if ( !strNewPwd.equals(strConfirmPwd) )
+        {
+            showValidationMessage(string, etConfirmPwd, context);
+            return false;
+        }
+        return true;
+    }
+}
