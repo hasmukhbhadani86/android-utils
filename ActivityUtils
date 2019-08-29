@@ -1,19 +1,13 @@
 
-============================================= How to use activity Utils class ===================================================
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
+import android.os.Build
+import android.os.Bundle
 
-1. Direct Navigation with one activity to another activity. 
-   ActivityUtils.startNewActivity(this, null, XYZ::class.java)
-
-2.Navigation with bundle data and finished previous stack activity. 
-   val bundle = Bundle()
-   bundle.putString("key","value")
-   ActivityUtils.startNewActivityWithFinish(mActivity = this, data = bundle, clazz = XYZ::class.java)
- 
- 3.Navigation with clear all previous stack activities.
-   ActivityUtils.startLoginActivityWithFinishAll(this, null, XYZ::class.java)
-
-================================================ ActivityUtils.kt ================================================================
-
+/**
+ * Created By Hasmukh Bhadani
+ */
 object ActivityUtils
 {
     fun <T : Any?> startNewActivity(mContext: Context, data: Bundle? = null, clazz: Class<T>)
@@ -59,3 +53,18 @@ object ActivityUtils
         }
     }
 }
+
+
+============================================= How to use activity Utils class ===================================================
+
+1. Direct Navigation with one activity to another activity. 
+   ActivityUtils.startNewActivity(this, null, XYZ::class.java)
+
+2.Navigation with bundle data and finished previous stack activity. 
+   val bundle = Bundle()
+   bundle.putString("key","value")
+   ActivityUtils.startNewActivityWithFinish(mActivity = this, data = bundle, clazz = XYZ::class.java)
+ 
+ 3.Navigation with clear all previous stack activities.
+   ActivityUtils.startLoginActivityWithFinishAll(this, null, XYZ::class.java)
+   
