@@ -1,4 +1,6 @@
 
+=========================== Method to Check internet connection =======================================
+
 public static boolean isOnline( Context context )
     {
 
