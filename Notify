@@ -1,4 +1,189 @@
+=================================================== KOTLIN ===================================================
 
+[styles.xml]
+
+<!--LOADING DIALOG STYLE-->
+    <style name="styleLoadingDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+    </style>
+    
+[layout_loading_dialog.xml]
+
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    >
+
+    <ImageView
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_centerInParent="true"
+        android:clickable="false"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_icon" />
+
+    <ProgressBar
+        android:id="@+id/imgLoader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="@color/colorLoaderProgress"
+        android:indeterminateTintMode="src_in"
+        android:layout_centerInParent="true"
+        />
+</RelativeLayout> 
+
+[DialogUtils.kt]
+
+import android.app.Activity
+import android.app.Dialog
+import android.content.Context
+import android.content.DialogInterface
+import android.os.Build
+import android.util.Log
+import android.view.View
+import android.view.WindowManager
+import androidx.appcompat.app.AlertDialog
+
+object DialogUtils {
+
+    private val TAG = DialogUtils::class.java.name
+
+    private var progressDialog: Dialog? = null
+
+    private var alertDialog: Dialog? = null
+
+    /*
+     * showLoadingDialog
+     */
+    fun showLoadingDialog(mContext: Activity) {
+
+        try {
+            progressDialog = Dialog(mContext, R.style.styleLoadingDialog)
+            progressDialog!!.setCancelable(false)
+
+            val mProgressView = View.inflate(mContext, R.layout.layout_loading_dialog, null)
+            progressDialog!!.setContentView(mProgressView)
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                progressDialog!!.window!!.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+                progressDialog!!.window!!.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+            } else {
+                progressDialog!!.window!!.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+            }
+
+            // Set properties
+            mProgressView.fitsSystemWindows = false
+
+            if (progressDialog != null && progressDialog!!.isShowing) {
+                progressDialog!!.dismiss()
+            }
+
+            if (progressDialog != null) {
+                progressDialog!!.show()
+            }
+        }catch (e:Exception) {
+            e.printStackTrace()
+        }
+    }
+    /**
+     * dismissDialog
+     */
+    fun dismissDialog() {
+        try {
+            if (progressDialog != null && progressDialog!!.isShowing) {
+                progressDialog!!.dismiss()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    fun dialogOK(title: String, message: String, activity: Activity) {
+        try {
+            val builder = AlertDialog.Builder(activity,R.style.styleAlertDialog)
+            builder.setTitle(title)
+            builder.setMessage(message)
+            builder.setPositiveButton(R.string.str_ok) { dialog, which -> dialog.dismiss() }
+            builder.show()
+
+        } catch (e: Exception) {
+            Log.e(TAG, e.toString())
+        }
+    }
+
+
+    /**
+     * Display message according to your parameters
+     *
+     * @param mContext Context
+     * @param title Title of alert dialog
+     * @param message Message of alert dialog
+     * @param positiveTitle Positive button text to display. It should not null or blank
+     * @param negativeTitle Negative button text to display. It should not null or blank
+     * @param positiveClick Positive button click listener
+     * @param negativeClick Negative button click listener
+     */
+    fun showAlertDialog(mContext: Context?, title:String, message: String?,positiveTitle: String?, negativeTitle: String?, positiveClick: DialogInterface.OnClickListener?, negativeClick: DialogInterface.OnClickListener?)
+    {
+        try
+        {
+            val builder = AlertDialog.Builder(mContext!!)
+            builder.setCancelable(false)
+            builder.setTitle(title)
+            builder.setMessage(message)
+
+            if (positiveClick != null)
+            {
+                builder.setPositiveButton(positiveTitle, positiveClick)
+            }
+            if (negativeClick != null)
+            {
+                builder.setNegativeButton(negativeTitle, negativeClick)
+            }
+
+            if (alertDialog != null && alertDialog!!.isShowing) {
+                alertDialog!!.dismiss()
+                alertDialog = null
+            }
+            alertDialog = builder.create()
+            (alertDialog as AlertDialog).show()
+        }
+        catch (e: java.lang.Exception)
+        {
+            AndroidLog.e(TAG, "Display Alert Dialog Error" + e.message)
+        }
+    }
+}
+
+----------------------------------- How to use-----------------------------------
+Progress Dialog:
+DialogUtils.showLoadingDialog(this@CheckEmailActivity)
+DialogUtils.dismissDialog
+
+Alert Dialog:
+DialogUtils.dialogOK("title","message",context)
+
+DialogUtils.showAlertDialog(context,"title","message","Ok","Cancel",
+                        { dialog, _ ->
+
+                            dialog.dismiss()//Ok event
+
+                        },
+                        {dialog, which ->
+                            dialog.dismiss()//Ok Cancel
+                        })
+
+
+
+=================================================== JAVE ===================================================================
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -115,7 +300,8 @@ public class Notify
 
 }
 
-============================================ Custom dialog method implementation===================================================
+========How to use ===================================================
+
 1. OK and CANCEL button.
 
 Notify.showAlertDialogCustom(this, "message..", "ok", "Cancel", new DialogInterface.OnClickListener()
