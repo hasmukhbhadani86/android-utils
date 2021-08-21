@@ -82,7 +82,7 @@ object AppPreference {
     }
 }
 
------------------------------------ How to use-----------------------------------
+//----------------------------------- How to use-----------------------------------
 //Store value into the Share preference:
   AppPreference.writeStringValue(this, KEY, values)
   AppPreference.writeObjectValue(this, KEY, Object)
