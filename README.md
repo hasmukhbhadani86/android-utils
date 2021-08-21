@@ -1,8 +1,8 @@
-# android-utils
+## Android-utils classes
 Utility classes like network, files, validation, notify etc..
 
-# File Operations
-https://hasmukhbhadani.blogspot.com/search/label/File%20Operation%20for%20Android
+- File Operations
+    - https://hasmukhbhadani.blogspot.com/search/label/File%20Operation%20for%20Android
 
 # Prefences:
 Preferences DataStore: https://www.geeksforgeeks.org/preferences-datastore-in-android/?ref=rp
