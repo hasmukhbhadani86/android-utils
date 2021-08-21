@@ -1,4 +1,13 @@
-package com.authentixlib.helper
+[AndroidManifest.xml]
+
+<uses-permission android:name = "android.permission.ACCESS_COARSE_LOCATION" />
+<uses-permission android:name = "android.permission.ACCESS_FINE_LOCATION" />
+    
+[build.gradle] - Add play service dependency
+implementation 'com.google.android.gms:play-services-location:18.0.0'
+
+
+[LocationHelper.kt]
 
 import android.Manifest
 import android.app.Activity
@@ -12,7 +21,7 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.CancellationTokenSource
 import com.google.android.gms.tasks.Task
 
-internal object LocationHelper
+object LocationHelper
 {
     private val TAG = this.javaClass.name
     private var cancellationTokenSource = CancellationTokenSource()
@@ -57,3 +66,13 @@ internal object LocationHelper
         }
     }
 }
+
+//----------------------------------- How to use-----------------------------------
+//init location class
+ LocationHelper.getCurrentLocation()
+ 
+ //Get location object
+ val locations:Location? = LocationHelper.getLocation()
+ val lat = locations.latitude
+ val lon = locations.longitude
+ 
