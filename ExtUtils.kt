@@ -1,5 +1,3 @@
-package com.omx1000.util
-
 import android.content.Context
 import android.view.View
 import android.widget.Toast
