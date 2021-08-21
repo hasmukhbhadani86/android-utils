@@ -1,8 +1,6 @@
-package com.omx1000.util
 import android.content.Context
 import android.content.SharedPreferences
 import com.google.gson.GsonBuilder
-
 
 object AppPreference {
 
