@@ -81,3 +81,13 @@ object AppPreference {
         getEditor(context).remove(key).commit()
     }
 }
+
+----------------------------------- How to use-----------------------------------
+//Store value into the Share preference:
+  AppPreference.writeStringValue(this, KEY, values)
+  AppPreference.writeObjectValue(this, KEY, Object)
+
+//Retrieve data from the Preference 
+  AppPreference.getStringValue(this, KEY)
+  val obj : ModelClass? = AppPreference.getObjectValue(this, KEY)
+   
