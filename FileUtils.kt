@@ -82,7 +82,7 @@ object FileUtils {
 
 }
 
------------------------------------ How to use-----------------------------------
+//----------------------------------- How to use-----------------------------------
 //Read file Data
 val file = File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "abc.txt")
 val data = LSXFileUtils.readFileData(file)
