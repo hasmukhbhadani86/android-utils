@@ -1,14 +1,13 @@
-[AndroidManifest.xml]
+//Prerequisite
 
+//[AndroidManifest.xml]
 <uses-permission android:name = "android.permission.ACCESS_COARSE_LOCATION" />
 <uses-permission android:name = "android.permission.ACCESS_FINE_LOCATION" />
     
-[build.gradle] - Add play service dependency
+//[build.gradle] - Add play service dependency
 implementation 'com.google.android.gms:play-services-location:18.0.0'
 
-
-[LocationHelper.kt]
-
+//[LocationHelper.kt]
 import android.Manifest
 import android.app.Activity
 import android.content.pm.PackageManager
