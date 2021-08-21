@@ -1,5 +1,3 @@
-package com.omx1000.util
-
 import android.content.Context
 import android.media.MediaScannerConnection
 import android.os.Environment
@@ -53,5 +51,43 @@ object FileUtils {
             }
         }
     }
+    
+    fun loadJSONFromAsset(mContext: Context, fileName: String): String {
+        val inputStream = mContext.assets.open(fileName)
+        val size = inputStream.available()
+        val buffer = ByteArray(size)
+        inputStream.read(buffer)
+        inputStream.close()
+        return String(buffer, Charsets.UTF_8)
+    }
+
+    fun readFileData(file: File): String
+    {
+        val sb = StringBuilder()
+
+        if (file.exists()) {
+            try {
+                val bufferedReader = file.bufferedReader();
+                bufferedReader.useLines { lines ->
+                    lines.forEach {
+                        sb.append(it)
+                    }
+                }
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
+        return sb.toString()
+    }
 
 }
+
+----------------------------------- How to use-----------------------------------
+//Read file Data
+val file = File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "abc.txt")
+val data = LSXFileUtils.readFileData(file)
+
+ //Write data to the file.                            
+FileUtils.writeDataToFile(context, "TestFolder", "test", "data" )
+ 
+                    
