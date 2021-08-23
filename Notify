@@ -164,6 +164,57 @@ object DialogUtils {
     }
 }
 
+//Material Dialog:
+/**
+     * Display message according to your parameters
+     *
+     * @param mContext Context
+     * @param title Title of alert dialog
+     * @param message Message of alert dialog
+     * @param positiveTitle Positive button text to display. It should not null or blank
+     * @param negativeTitle Negative button text to display. It should not null or blank
+     * @param neutralTitle Negative button text to display. It should not null or blank
+     * @param positiveClick Positive button click listener
+     * @param negativeClick Negative button click listener
+     * @param neutralClick Negative button click listener
+     */
+    private var materialAlertDialog: MaterialAlertDialogBuilder? = null
+    fun showAlertDialog(mContext: Context, title: String, message: String,
+                   positiveTitle: String?= null,
+                   negativeTitle: String?= null,
+                   neutralTitle: String?= null,
+                   positiveClick: DialogInterface.OnClickListener?=null,
+                   negativeClick: DialogInterface.OnClickListener?=null,
+                   neutralClick: DialogInterface.OnClickListener?=null)
+    {
+        try
+        {
+            materialAlertDialog = MaterialAlertDialogBuilder(mContext)
+            materialAlertDialog!!.setTitle(title)
+            materialAlertDialog!!.setCancelable(false)
+            materialAlertDialog!!.setMessage(message)
+            if (positiveClick != null)
+            {
+                materialAlertDialog!!.setPositiveButton(positiveTitle, positiveClick)
+            }
+            if (negativeClick != null)
+            {
+                materialAlertDialog!!.setNegativeButton(negativeTitle, negativeClick)
+            }
+            if (neutralClick != null)
+            {
+                materialAlertDialog!!.setNegativeButton(neutralTitle, neutralClick)
+            }
+            materialAlertDialog!!.show()
+        }
+        catch (e: Exception)
+        {
+            AndroidLog.e(TAG, "Display Alert Dialog Error" + e.message)
+        }
+
+    }
+
+
 ----------------------------------- How to use-----------------------------------
 Progress Dialog:
 DialogUtils.showLoadingDialog(this@CheckEmailActivity)
