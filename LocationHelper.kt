@@ -13,8 +13,7 @@ import android.app.Activity
 import android.content.pm.PackageManager
 import android.location.Location
 import androidx.core.app.ActivityCompat
-import com.authentixlib.LSXCommandWrapper
-import com.authentixlib.log.LSXLog
+import android.util.Log;
 import com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.CancellationTokenSource
@@ -38,7 +37,7 @@ object LocationHelper
 
     fun getCurrentLocation()
     {
-        val activity = LSXCommandWrapper.getInstance()?.getActivityContext()!!
+        val activity = ApplicationClass.getInstance()?.getActivityContext()!!
 
         val fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity)
 
@@ -55,12 +54,12 @@ object LocationHelper
             {
                 val result: Location = task.result
                 setLocation(result)
-                LSXLog.i(TAG,"getLocation : (success): ${result.latitude}, ${result.longitude}")
+                Log.i(TAG,"getLocation : (success): ${result.latitude}, ${result.longitude}")
             }
             else
             {
                 val exception = task.exception
-                LSXLog.i(TAG,"getLocation : "+exception?.message.toString())
+                Log.i(TAG,"getLocation : "+exception?.message.toString())
             }
         }
     }
