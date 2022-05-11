@@ -18,4 +18,7 @@ Utility classes like network, files, validation, notify etc..
 - Hash map in shared preferences
     - http://hasmukhbhadani.blogspot.com/search/label/Store%20hash%20map%20in%20shared%20preferences
 
+# Runtime Permission lib
+ - https://github.com/ParkSangGwon/TedPermission
+
 
